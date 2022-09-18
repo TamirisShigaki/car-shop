@@ -1,3 +1,4 @@
+import { ErrorTypes } from '../errors/catalog';
 import { CarZodSchema, ICar } from '../interfaces/ICar';
 import { IModel } from '../interfaces/IModel';
 import { IService } from '../interfaces/IService';
@@ -17,5 +18,12 @@ export default class CarService implements IService<ICar> {
 
   public async read(): Promise<ICar[]> {
     return this.model.read();
+  }
+
+  public async readOne(_id: string): Promise<ICar | null> {
+    const oneCar = await this.model.readOne(_id);
+    if (!oneCar) throw new Error(ErrorTypes.EntityNotFound);
+
+    return oneCar;
   }
 }
