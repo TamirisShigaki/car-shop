@@ -14,4 +14,8 @@ export default class CarService implements IService<ICar> {
     }
     return this.model.create(obj);
   }
+
+  public async read(): Promise<ICar[]> {
+    return this.model.read();
+  }
 }
